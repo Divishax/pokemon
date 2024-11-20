@@ -4,6 +4,7 @@ import Navbar from "../molecules/Navbar";
 import Image from "../atoms/Image";
 import Details from "../molecules/Details";
 import Gallery from "../molecules/Gallery";
+import Info from "../molecules/Info";
 
 function PokemonDetailsPage() {
   const location = useLocation();
@@ -22,6 +23,7 @@ function PokemonDetailsPage() {
   );
   const moves = pokemon.moves.slice(0, 5).map((move) => move.move.name);
 
+  const types = pokemon.types.map((type) => type.type.name);
   const sprites = [
     { url: pokemon.sprites.front_default, alt: "Front view" },
     { url: pokemon.sprites.back_default, alt: "Back view" },
@@ -36,21 +38,13 @@ function PokemonDetailsPage() {
         <div className="bg-white p-6 rounded-lg shadow-md max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <Image />
-            {/* Pokémon Information */}
             <div>
-              <h1 className="text-4xl font-bold capitalize text-gray-800 mb-4">
-                {pokemon.name}
-              </h1>
-              <p className="text-gray-700 text-lg">
-                <strong>Height:</strong> {pokemon.height / 10} m
-              </p>
-              <p className="text-gray-700 text-lg">
-                <strong>Weight:</strong> {pokemon.weight / 10} kg
-              </p>
-              <p className="text-gray-700 text-lg">
-                <strong>Type:</strong>{" "}
-                {pokemon.types.map((type) => type.type.name).join(", ")}
-              </p>
+              <Info
+                name={pokemon.name}
+                height={pokemon.height}
+                weight={pokemon.weight}
+                types={types}
+              />
 
               <div className="container mx-auto py-8">
                 <Details title="Abilities" items={abilities} />
