@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import Navbar from "../molecules/Navbar";
-import { Button } from "@mui/material";
+
+import { Box, Button } from "@mui/material";
 
 function PokemonPage() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -48,7 +50,6 @@ function PokemonPage() {
 
   const handleViewDetails = (pokemon) => {
     navigate(`/pokemon/${pokemon.id}`, { state: { pokemon } });
-    // setSelectedPokemon(pokemon);
   };
 
   const handleLoadMore = () => {
@@ -85,19 +86,25 @@ function PokemonPage() {
           ))}
         </div>
 
-        <div className="text-center mt-8">
-          <button
+        <Box textAlign="center" mt={8}>
+          <Button
             onClick={handleLoadMore}
-            className={`px-6 py-3 text-white font-bold rounded-md ${
-              isLoading
-                ? "bg-gray-500 cursor-not-allowed"
-                : "bg-blue-500 hover:bg-blue-600 transition"
-            }`}
+            variant="contained"
+            color={isLoading ? "grey" : "primary"}
             disabled={isLoading}
+            sx={{
+              px: 3,
+              py: 1.5,
+              fontWeight: "bold",
+              borderRadius: 1,
+              "&:hover": {
+                backgroundColor: !isLoading && "primary.dark",
+              },
+            }}
           >
             {isLoading ? "Loading..." : "Load More"}
-          </button>
-        </div>
+          </Button>
+        </Box>
       </div>
 
       {selectedPokemon && (
