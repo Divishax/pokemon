@@ -3,6 +3,7 @@ import { useState } from "react";
 import Navbar from "../molecules/Navbar";
 import Image from "../atoms/Image";
 import Details from "../molecules/Details";
+import Gallery from "../molecules/Gallery";
 
 function PokemonDetailsPage() {
   const location = useLocation();
@@ -20,6 +21,13 @@ function PokemonDetailsPage() {
     (stat) => `${stat.stat.name}: ${stat.base_stat}`
   );
   const moves = pokemon.moves.slice(0, 5).map((move) => move.move.name);
+
+  const sprites = [
+    { url: pokemon.sprites.front_default, alt: "Front view" },
+    { url: pokemon.sprites.back_default, alt: "Back view" },
+    { url: pokemon.sprites.front_shiny, alt: "Shiny front view" },
+    { url: pokemon.sprites.back_shiny, alt: "Shiny back view" },
+  ];
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -50,7 +58,6 @@ function PokemonDetailsPage() {
                 <Details title="Moves" items={moves} />
               </div>
 
-              {/* Gallery Toggle Button */}
               <button
                 onClick={() => setShowGallery(!showGallery)}
                 className="mt-6 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
@@ -61,34 +68,7 @@ function PokemonDetailsPage() {
           </div>
         </div>
 
-        {/* Gallery */}
-        {showGallery && (
-          <div className="bg-white p-6 mt-6 rounded-lg shadow-md max-w-4xl mx-auto">
-            <h3 className="text-xl font-bold text-blue-500 mb-4">Gallery</h3>
-            <div className="flex flex-wrap justify-center gap-6">
-              <img
-                src={pokemon.sprites.front_default}
-                alt="Front view"
-                className="w-32 h-32 object-contain rounded-lg shadow-md"
-              />
-              <img
-                src={pokemon.sprites.back_default}
-                alt="Back view"
-                className="w-32 h-32 object-contain rounded-lg shadow-md"
-              />
-              <img
-                src={pokemon.sprites.front_shiny}
-                alt="Shiny front view"
-                className="w-32 h-32 object-contain rounded-lg shadow-md"
-              />
-              <img
-                src={pokemon.sprites.back_shiny}
-                alt="Shiny back view"
-                className="w-32 h-32 object-contain rounded-lg shadow-md"
-              />
-            </div>
-          </div>
-        )}
+        {showGallery && <Gallery sprites={sprites} />}
       </div>
     </div>
   );
