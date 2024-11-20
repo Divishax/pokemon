@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import Navbar from "../molecules/Navbar";
 import Image from "../atoms/Image";
+import Details from "../molecules/Details";
 
 function PokemonDetailsPage() {
   const location = useLocation();
@@ -14,22 +15,19 @@ function PokemonDetailsPage() {
     );
   }
 
+  const abilities = pokemon.abilities.map((ability) => ability.ability.name);
+  const baseStats = pokemon.stats.map(
+    (stat) => `${stat.stat.name}: ${stat.base_stat}`
+  );
+  const moves = pokemon.moves.slice(0, 5).map((move) => move.move.name);
+
   return (
     <div className="bg-gray-100 min-h-screen">
       <Navbar />
       <div className="container mx-auto py-8">
         <div className="bg-white p-6 rounded-lg shadow-md max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row items-center gap-8">
-            {/* Pokémon Image */}
-            {/* <div className="flex-shrink-0">
-              <img
-                src={pokemon.sprites.other["official-artwork"].front_default}
-                alt={pokemon.name}
-                className="w-64 h-64 object-contain"
-              />
-            </div> */}
             <Image />
-
             {/* Pokémon Information */}
             <div>
               <h1 className="text-4xl font-bold capitalize text-gray-800 mb-4">
@@ -46,42 +44,10 @@ function PokemonDetailsPage() {
                 {pokemon.types.map((type) => type.type.name).join(", ")}
               </p>
 
-              {/* Abilities */}
-              <div className="mt-6">
-                <h3 className="text-xl font-bold text-blue-500 border-b border-gray-300 pb-2">
-                  Abilities
-                </h3>
-                <ul className="list-disc list-inside mt-2 text-gray-700">
-                  {pokemon.abilities.map((ability) => (
-                    <li key={ability.ability.name}>{ability.ability.name}</li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Base Stats */}
-              <div className="mt-6">
-                <h3 className="text-xl font-bold text-blue-500 border-b border-gray-300 pb-2">
-                  Base Stats
-                </h3>
-                <ul className="list-disc list-inside mt-2 text-gray-700">
-                  {pokemon.stats.map((stat) => (
-                    <li key={stat.stat.name}>
-                      {stat.stat.name.toUpperCase()}: {stat.base_stat}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Moves */}
-              <div className="mt-6">
-                <h3 className="text-xl font-bold text-blue-500 border-b border-gray-300 pb-2">
-                  Moves
-                </h3>
-                <ul className="list-disc list-inside mt-2 text-gray-700">
-                  {pokemon.moves.slice(0, 5).map((move) => (
-                    <li key={move.move.name}>{move.move.name}</li>
-                  ))}
-                </ul>
+              <div className="container mx-auto py-8">
+                <Details title="Abilities" items={abilities} />
+                <Details title="Base Stats" items={baseStats} />
+                <Details title="Moves" items={moves} />
               </div>
 
               {/* Gallery Toggle Button */}
