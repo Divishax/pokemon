@@ -60,52 +60,50 @@ function PokemonPage() {
     <div className="bg-gray-100 min-h-screen">
       <Navbar />
 
-      <div className="container mx-auto py-8">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Pokemon List
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {pokemonList.map((pokemon, index) => (
-            <div
-              key={`${pokemon.id}-${index}`}
-              className="bg-white rounded-lg shadow-md p-4 text-center"
-            >
-              <h3 className="text-lg font-bold capitalize">{pokemon.name}</h3>
-              <img
-                src={pokemon.sprites.front_default}
-                alt={pokemon.name}
-                className="w-24 h-24 mx-auto my-4"
-              />
-              <Button
-                variant="outlined"
-                onClick={() => handleViewDetails(pokemon)}
-              >
-                View full details
-              </Button>
-            </div>
-          ))}
-        </div>
-
-        <Box textAlign="center" mt={8}>
-          <Button
-            onClick={handleLoadMore}
-            variant="contained"
-            color={isLoading ? "grey" : "primary"}
-            disabled={isLoading}
-            sx={{
-              px: 3,
-              py: 1.5,
-              fontWeight: "bold",
-              borderRadius: 1,
-              "&:hover": {
-                backgroundColor: !isLoading && "primary.dark",
-              },
-            }}
+      <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+        Pokemon List
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 min-h-screen">
+        {pokemonList.map((pokemon, index) => (
+          <div
+            key={`${pokemon.id}-${index}`}
+            className="bg-white rounded-lg shadow-md p-4 text-center"
           >
-            {isLoading ? "Loading..." : "Load More"}
-          </Button>
-        </Box>
+            <h3 className="text-lg font-bold capitalize">{pokemon.name}</h3>
+            <img
+              src={pokemon.sprites.front_default}
+              alt={pokemon.name}
+              className="w-24 h-24 mx-auto my-4"
+            />
+            <Button
+              variant="outlined"
+              onClick={() => handleViewDetails(pokemon)}
+            >
+              View full details
+            </Button>
+          </div>
+        ))}
       </div>
+
+      <Box textAlign="center" mt={8}>
+        <Button
+          onClick={handleLoadMore}
+          variant="contained"
+          color={isLoading ? "grey" : "primary"}
+          disabled={isLoading}
+          sx={{
+            px: 3,
+            py: 1.5,
+            fontWeight: "bold",
+            borderRadius: 1,
+            "&:hover": {
+              backgroundColor: !isLoading && "primary.dark",
+            },
+          }}
+        >
+          {isLoading ? "Loading..." : "Load More"}
+        </Button>
+      </Box>
 
       {selectedPokemon && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">

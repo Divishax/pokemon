@@ -38,31 +38,29 @@ function PokemonDetailsPage() {
   return (
     <div className="bg-gray-100 min-h-screen">
       <Navbar />
-      <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
-        <div className="bg-white p-6 rounded-lg shadow-md max-w-4xl w-full flex flex-col md:flex-row gap-8 items-center">
-          <Image />
-          <div className="flex-1">
-            <Info
-              name={pokemon.name}
-              height={pokemon.height}
-              weight={pokemon.weight}
-              types={types}
-            />
+      <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-white p-6 rounded-lg shadow-md max-w-4xl w-full flex-col md:flex-row gap-8">
+        <Image />
+        <div className="flex-1">
+          <Info
+            name={pokemon.name}
+            height={pokemon.height}
+            weight={pokemon.weight}
+            types={types}
+          />
 
-            <div className="container mx-auto py-8">
-              <Details title="Abilities" items={abilities} />
-              <Details title="Base Stats" items={baseStats} />
-              <Details title="Moves" items={moves} />
-            </div>
-
-            <Button onClick={() => setShowGallery(!showGallery)}>
-              {showGallery ? "Hide Gallery" : "View Gallery"}
-            </Button>
+          <div className="container mx-auto py-8">
+            <Details title="Abilities" items={abilities} />
+            <Details title="Base Stats" items={baseStats} />
+            <Details title="Moves" items={moves} />
           </div>
-        </div>
 
-        {showGallery && <Gallery sprites={sprites} />}
+          <Button onClick={() => setShowGallery(!showGallery)}>
+            {showGallery ? "Hide Gallery" : "View Gallery"}
+          </Button>
+        </div>
       </div>
+
+      {showGallery && <Gallery sprites={sprites} />}
     </div>
   );
 }
